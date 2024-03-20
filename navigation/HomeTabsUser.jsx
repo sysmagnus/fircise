@@ -8,7 +8,7 @@ import { Avatar, HStack, IconButton, Input } from "native-base"
 
 const Tab = createBottomTabNavigator()
 
-export const HomeTabsUser = () => {
+export const HomeTabsUser = ({ navigation }) => {
     return (
         <Tab.Navigator>
             <Tab.Screen
@@ -61,6 +61,7 @@ export const HomeTabsUser = () => {
                     ),
                     headerRight: () => (
                         <IconButton
+                            onPress={() => navigation.navigate('AlertSentUser')}
                             variant="ghost"
                             _icon={{
                                 as: Ionicons,
