@@ -1,8 +1,8 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import { Feather } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons'
 import { HomeGuest } from "../screens/home"
 import { AlertDetail } from "../screens/alerts"
-import { Button, Link } from "native-base";
+import { Button, Link } from "native-base"
 
 const Tab = createBottomTabNavigator()
 
