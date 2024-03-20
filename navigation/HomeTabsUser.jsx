@@ -1,5 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { Feather } from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons'
 import { HomeUser } from "../screens/home"
 import { AlertUser } from "../screens/alerts"
 import { ProfileUserReport } from "../screens/users"
@@ -45,10 +46,27 @@ export const HomeTabsUser = () => {
                 name="AlertUser"
                 component={AlertUser}
                 options={{
+                    title: 'Alertar',
                     tabBarLabel: 'Alertas',
                     tabBarIcon: ({ color, size }) => (
                         <Feather name="alert-circle" size={size} color={color} />
                     ),
+                    headerLeft: () => (
+                        <IconButton
+                            variant="ghost"
+                            _icon={{
+                                as: Ionicons,
+                                name: "arrow-back",
+                            }} ml={2} />
+                    ),
+                    headerRight: () => (
+                        <IconButton
+                            variant="ghost"
+                            _icon={{
+                                as: Ionicons,
+                                name: "checkmark",
+                            }} mr={2} />
+                    )
                 }} />
             < Tab.Screen
                 name="ProfileUserReport"
