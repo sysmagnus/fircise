@@ -8,8 +8,12 @@ export const Login = ({ navigation }) => {
         navigation.navigate('HomeTabsUser')
     }
 
+    const navigateToRegisterUser = () => {
+        navigation.navigate('RegisterUser')
+    }
+
     return (
-        <View>            
+        <View>
             <Center style={styles.header}>
                 <Text style={styles.title}>FIRCISE</Text>
                 <Text style={styles.subTitle}>Inicia Sessión</Text>
@@ -25,7 +29,7 @@ export const Login = ({ navigation }) => {
                 justifyContent: "center",
                 marginTop: 10
             }}>
-                <Link href="https://nativebase.io">
+                <Link onPress={navigateToRegisterUser}>
                     No tiene cuenta Registrese
                 </Link>
             </View>
