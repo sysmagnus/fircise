@@ -1,15 +1,20 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { AdminAlertList } from "../screens/alerts"
-import { AdminUsersList, ProfileAdmin } from "../screens/users"
+import { AdminUsersList } from "../screens/users"
 import { HomeAdmin } from "../screens/home"
-import { Text } from "react-native"
+import { Pressable, Text, Touchable } from "react-native"
 import { Avatar, HStack, IconButton } from "native-base"
 import { Feather } from "@expo/vector-icons"
 import { Ionicons } from "@expo/vector-icons"
 
 const Tab = createBottomTabNavigator()
 
-export const HomeTabsAdmin = () => {
+export const HomeTabsAdmin = ({ navigation }) => {
+
+    const navigateToProfileUser = () => {
+        navigation.navigate('ProfileUserReport')
+    }
+
     return (
         <Tab.Navigator>
             <Tab.Screen
@@ -32,9 +37,13 @@ export const HomeTabsAdmin = () => {
                                     as: Feather,
                                     name: "bell",
                                 }} mr={2} />
-                            <Avatar bg="green.500" source={{
-                                uri: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-                            }} />
+                            <Pressable onPress={navigateToProfileUser}>
+                                <Avatar
+                                    bg="green.500"
+                                    source={{
+                                        uri: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+                                    }} />
+                            </Pressable>
                         </HStack>
                     ),
                 }}

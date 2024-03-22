@@ -6,7 +6,7 @@ import { AlertDetail, AlertSentUser } from "../screens/alerts"
 import { Login } from "../screens/Login"
 import { UserProfileEdit } from "../screens/users/UserProfileEdit"
 import { RegisterUser } from "../screens/RegisterUser"
-import { AdminUsersUpdate } from "../screens/users"
+import { AdminUsersUpdate, ProfileUserReport } from "../screens/users"
 
 const Stack = createStackNavigator()
 
@@ -21,7 +21,17 @@ export const Navigation = () => {
             <Stack.Screen name="RegisterUser" component={RegisterUser} />
             <Stack.Screen name="AdminUsersUpdate" component={AdminUsersUpdate} />
             <Stack.Screen name="AlertSentUser" component={AlertSentUser} />
-            <Stack.Screen name="UserProfileEdit" component={UserProfileEdit}
+            <Stack.Screen
+                name="ProfileUserReport"
+                component={ProfileUserReport}
+                options={{
+                    title: 'Perfil',
+                    headerShown: true,
+                    headerTransparent: false
+                }} />
+            <Stack.Screen
+                name="UserProfileEdit"
+                component={UserProfileEdit}
                 options={{
                     title: 'Perfil',
                     headerShown: true,
