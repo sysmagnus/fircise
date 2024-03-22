@@ -5,13 +5,12 @@ import { HomeTabsGuest } from "./HomeTabsGuest"
 import { AlertDetail, AlertSentUser } from "../screens/alerts"
 import { Login } from "../screens/Login"
 import { UserProfileEdit } from "../screens/users/UserProfileEdit"
-import { IconButton } from "native-base"
-import { Feather } from '@expo/vector-icons'
 import { RegisterUser } from "../screens/RegisterUser"
+import { AdminUsersUpdate } from "../screens/users"
 
 const Stack = createStackNavigator()
 
-export const Navigation = ({ navigation }) => {
+export const Navigation = () => {
     return (
         <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Login" component={Login} options={{ title: '', headerTransparent: true }} />
@@ -20,6 +19,7 @@ export const Navigation = ({ navigation }) => {
             <Stack.Screen name="HomeTabsGuest" component={HomeTabsGuest} />
             {/** Otras rutas  */}
             <Stack.Screen name="RegisterUser" component={RegisterUser} />
+            <Stack.Screen name="AdminUsersUpdate" component={AdminUsersUpdate} />
             <Stack.Screen name="AlertSentUser" component={AlertSentUser} />
             <Stack.Screen name="UserProfileEdit" component={UserProfileEdit}
                 options={{
