@@ -5,7 +5,7 @@ import { Box, Input, Button, Link, Center } from "native-base"
 export const Login = ({ navigation }) => {
 
     const navigateToHomeTabsGuest = () => {
-        navigation.navigate('HomeTabsUser')
+        navigation.navigate('HomeTabsAdmin')
     }
 
     const navigateToRegisterUser = () => {

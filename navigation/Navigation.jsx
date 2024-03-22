@@ -2,7 +2,7 @@ import { createStackNavigator } from "@react-navigation/stack"
 import { HomeTabsAdmin } from "./HomeTabsAdmin"
 import { HomeTabsUser } from "./HomeTabsUser"
 import { HomeTabsGuest } from "./HomeTabsGuest"
-import { AlertSentUser } from "../screens/alerts"
+import { AlertDetail, AlertSentUser } from "../screens/alerts"
 import { Login } from "../screens/Login"
 import { UserProfileEdit } from "../screens/users/UserProfileEdit"
 import { IconButton } from "native-base"
@@ -11,7 +11,7 @@ import { RegisterUser } from "../screens/RegisterUser"
 
 const Stack = createStackNavigator()
 
-export const Navigation = ({navigation}) => {
+export const Navigation = ({ navigation }) => {
     return (
         <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Login" component={Login} options={{ title: '', headerTransparent: true }} />
@@ -25,7 +25,16 @@ export const Navigation = ({navigation}) => {
                 options={{
                     title: 'Perfil',
                     headerShown: true,
-                    headerTransparent: false}} />
+                    headerTransparent: false
+                }} />
+            <Stack.Screen
+                name="AlertDetail"
+                component={AlertDetail}
+                options={{
+                    title: 'Detalles',
+                    headerShown: true,
+                    headerTransparent: false
+                }} />
         </Stack.Navigator>
     )
 }
