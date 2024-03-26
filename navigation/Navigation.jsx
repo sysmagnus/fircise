@@ -14,7 +14,7 @@ import { AdminUsersUpdate, ProfileUserReport } from "../screens/users"
 import { auth } from "../config/firebase"
 
 const Stack = createStackNavigator()
-const AuthenticatedUserContext = createContext({})
+export const AuthenticatedUserContext = createContext({})
 
 export const AuthenticatedUserProvider = ({ children }) => {
     const [user, setUser] = useState(null)

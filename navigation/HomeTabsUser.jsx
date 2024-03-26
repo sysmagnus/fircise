@@ -11,7 +11,6 @@ import { signOut } from "firebase/auth"
 const Tab = createBottomTabNavigator()
 
 export const HomeTabsUser = ({ navigation }) => {
-
     const signOutLocal = async () => {
         try {
             await signOut(auth);
