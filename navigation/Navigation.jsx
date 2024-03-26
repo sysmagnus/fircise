@@ -32,6 +32,14 @@ function GuestStack() {
             <Stack.Screen name="Login" component={Login} options={{ title: '', headerTransparent: true }} />
             <Stack.Screen name="RegisterUser" component={RegisterUser} />
             <Stack.Screen name="HomeTabsGuest" component={HomeTabsGuest} />
+            <Stack.Screen
+                name="AlertDetail"
+                component={AlertDetail}
+                options={{
+                    title: 'Detalles',
+                    headerShown: true,
+                    headerTransparent: false
+                }} />
         </Stack.Navigator>
     )
 }
@@ -40,7 +48,7 @@ function AdminStack() {
     return (
         <Stack.Navigator initialRouteName="HomeTabsUser" screenOptions={{ headerShown: false }}>
             <Stack.Screen name="HomeTabsAdmin" component={HomeTabsAdmin} />
-            <Stack.Screen name="HomeTabsUser" component={HomeTabsUser} />            
+            <Stack.Screen name="HomeTabsUser" component={HomeTabsUser} />
             <Stack.Screen name="AdminUsersUpdate" component={AdminUsersUpdate} />
             <Stack.Screen name="AlertSentUser" component={AlertSentUser} />
             <Stack.Screen

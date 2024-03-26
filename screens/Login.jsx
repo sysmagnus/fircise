@@ -48,6 +48,7 @@ export const Login = ({ navigation }) => {
                     value={formik.values.email}
                 />
                 <Input
+                    secureTextEntry={true}
                     placeholder="********"
                     onChangeText={formik.handleChange("password")}
                     value={formik.values.password}

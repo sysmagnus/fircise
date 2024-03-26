@@ -4,9 +4,10 @@ import MapView, { Marker } from "react-native-maps"
 import { useAlertStore } from "../../store/alert"
 import { useFocusEffect } from "@react-navigation/core"
 
-export const HomeUser = () => {
+export const HomeUser = ({ navigation }) => {
     const alerts = useAlertStore(state => state.alerts)
     const fetchAlerts = useAlertStore(state => state.fetchAlerts)
+    const setSelectedAlert = useAlertStore(state => state.setSelectedAlert)
 
     const [origin, setOrigin] = useState({
         latitude: -13.617373,
@@ -20,6 +21,11 @@ export const HomeUser = () => {
     useEffect(() => {
         console.log('Alertas:', alerts)
     }, [alerts])
+
+    navigateToAlertDetail = (alert) => {
+        setSelectedAlert(alert)
+        navigation.navigate('AlertDetail')
+    }
 
     return (
         <View style={styles.container}>
@@ -35,13 +41,14 @@ export const HomeUser = () => {
                     alerts.map(alert => (
                         <Marker
                             key={alert.id}
-                            title={alert.lugar}
-                            description={alert.descripcion}
+                            // title={alert.lugar}
+                            // description={alert.descripcion}
                             coordinate={{
                                 latitude: parseFloat(alert.latitud),
                                 longitude: parseFloat(alert.longitud),
                             }}
                             image={require('../../assets/fire.png')}
+                            onPress={() => navigateToAlertDetail(alert)}
                         />
                     ))
                 }

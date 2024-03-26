@@ -76,7 +76,7 @@ export const HomeTabsUser = ({ navigation }) => {
                             variant="ghost"
                             _icon={{
                                 as: Ionicons,
-                                name: "checkmark",
+                                name: "save",
                             }} mr={2} />
                     )
                 }} />
