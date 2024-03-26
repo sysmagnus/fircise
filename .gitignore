@@ -8,7 +8,6 @@ pnpm-lock.yaml
 .expo/
 dist/
 web-build/
-android/
 
 # Native
 *.orig.*
