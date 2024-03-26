@@ -20,6 +20,7 @@ export default {
             "supportsTablet": true
         },
         "android": {
+            "package": "com.sysmagnus.fircise",
             "adaptiveIcon": {
                 "foregroundImage": "./assets/adaptive-icon.png",
                 "backgroundColor": "#ffffff"
@@ -35,6 +36,9 @@ export default {
             storageBucket: process.env.STORAGEBUCKET,
             messagingSenderId: process.env.MESSAGINGSENDERID,
             appId: process.env.APPID,
+            "eas": {
+                "projectId": "997ad5f3-b2fa-45e9-8d83-16c0ceef8968"
+            }
         }
     }
 }
