@@ -4,6 +4,7 @@ import { useAlertStore } from "../../store/alert"
 import { AuthenticatedUserContext } from "../../navigation/Navigation"
 import { useCallback, useContext } from "react"
 import { useFocusEffect } from "@react-navigation/core"
+import { TouchableOpacity } from "react-native"
 
 export const ProfileUserReport = ({ navigation }) => {
     const userAlerts = useAlertStore(state => state.userAlerts)
@@ -13,6 +14,10 @@ export const ProfileUserReport = ({ navigation }) => {
     useFocusEffect(useCallback(() => {
         getUserAlerts(user.uid)
     }, []))
+
+    navigateToAlertDetail = () => {
+        navigation.navigate('AlertDetail')
+    }
 
     return (
         <ScrollView>
@@ -33,22 +38,24 @@ export const ProfileUserReport = ({ navigation }) => {
             <VStack space={3} ml={5} mr={5}>
                 {
                     userAlerts.map(alert => (
-                        <Box rounded="lg"
-                            overflow="hidden"
-                            borderColor="coolGray.200"
-                            backgroundColor="white"
-                            borderWidth={1}
-                            padding={4}>
-                            <HStack space={2}>
-                                <Entypo name="location-pin" size={24} color="black" />
-                                <VStack style={{ flex: 1, justifyContent: 'center' }}>
-                                    <Heading>{alert.lugar}</Heading>
-                                    <Text>Magnitud: {alert.magnitud}</Text>
-                                    <Text>{alert.fecha}</Text>
-                                </VStack>
-                                <Text>{alert.estado}</Text>
-                            </HStack>
-                        </Box>
+                        <TouchableOpacity onPress={navigateToAlertDetail}>
+                            <Box rounded="lg"
+                                overflow="hidden"
+                                borderColor="coolGray.200"
+                                backgroundColor="white"
+                                borderWidth={1}
+                                padding={4}>
+                                <HStack space={2}>
+                                    <Entypo name="location-pin" size={24} color="black" />
+                                    <VStack style={{ flex: 1, justifyContent: 'center' }}>
+                                        <Heading>{alert.lugar}</Heading>
+                                        <Text>Magnitud: {alert.magnitud}</Text>
+                                        <Text>{alert.fecha}</Text>
+                                    </VStack>
+                                    <Text>{alert.estado}</Text>
+                                </HStack>
+                            </Box>
+                        </TouchableOpacity>
                     ))
                 }
             </VStack>
