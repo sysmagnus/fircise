@@ -3,7 +3,7 @@ import { database } from '../config/firebase'
 import { addDoc, collection, getDocs, query, where } from '@firebase/firestore'
 
 // Crea el store de Zustand
-export const useAlertStore = create((set, get) => ({
+export const useAlertStore = create((set) => ({
     alerts: [],
     userAlerts: [],
     selectedAlert: {},
@@ -50,5 +50,4 @@ export const useAlertStore = create((set, get) => ({
             console.error('Error al crear el alerta:', error)
         }
     },
-
 }))
