@@ -11,6 +11,12 @@ export const useUserStore = create((set) => ({
         rol: 'guest',
     },
     setUserAuth: (user) => set({ userAuth: user }),
+    setDefaultUserAuth: () => set({
+        userId: '-',
+        nombre: 'invitado',
+        email: '-',
+        rol: 'guest',
+    }),
     getUserById: async (userId) => {
         const q = query(collection(database, 'users'), where('userId', '==', userId), limit(1))
         const querySnapshot = await getDocs(q)

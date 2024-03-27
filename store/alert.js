@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { database } from '../config/firebase'
-import { addDoc, collection, getDocs, query, where } from '@firebase/firestore'
+import { addDoc, collection, getDocs, query, where, doc, updateDoc } from '@firebase/firestore'
 
 // Crea el store de Zustand
 export const useAlertStore = create((set) => ({
@@ -51,4 +51,14 @@ export const useAlertStore = create((set) => ({
             console.error('Error al crear el alerta:', error)
         }
     },
+    validateAlert: async (alertId) => {
+        try {
+            const alertRef = doc(database, 'alerts', alertId)
+            await updateDoc(alertRef, { published: true })
+            return { status: 'success', message: 'Alert validated successfully.' }
+        } catch (error) {
+            console.error('Error validating alert:', error);
+            return { status: 'error', message: 'Error validating alert.' };
+        }
+    }
 }))

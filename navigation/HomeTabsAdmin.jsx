@@ -14,10 +14,12 @@ const Tab = createBottomTabNavigator()
 
 export const HomeTabsAdmin = ({ navigation }) => {
     const userAuth = useUserStore(state => state.userAuth)
+    const setDefaultUserAuth = useUserStore(state => state.setDefaultUserAuth)
 
     const signOutLocal = async () => {
-        try {
-            await signOut(auth)
+        try {            
+            await signOut(auth)            
+            setDefaultUserAuth()
             console.log('User signed out!')
         } catch (error) {
             console.error('Error signing out: ', error)

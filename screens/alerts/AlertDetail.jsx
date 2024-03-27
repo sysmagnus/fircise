@@ -1,10 +1,17 @@
-import { Box, Center, Heading, Text } from "native-base"
-import { ScrollView, StyleSheet } from "react-native"
+import { Box, Button, Center, Heading, Text } from "native-base"
+import { Alert, ScrollView, StyleSheet } from "react-native"
 import MapView, { Marker } from "react-native-maps"
 import { useAlertStore } from "../../store/alert"
 
 export const AlertDetail = () => {
     const selectedAlert = useAlertStore(state => state.selectedAlert)
+    const validateAlert = useAlertStore(state => state.validateAlert)
+
+    const handleValidateAlert = async () => {
+        const status = await validateAlert(selectedAlert.id)
+        selectedAlert.published = true
+        Alert.alert(status.message)
+    }
 
     return (
         <ScrollView style={{
@@ -41,6 +48,12 @@ export const AlertDetail = () => {
                 <Heading>Estado</Heading>
                 <Text fontSize="lg">{selectedAlert.estado}</Text>
             </Box>
+            {
+                selectedAlert.published === false &&
+                <Box mt={2}>
+                    <Button onPress={() => handleValidateAlert(selectedAlert)}>Validar</Button>
+                </Box>
+            }
         </ScrollView>
     )
 }
