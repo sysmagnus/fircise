@@ -5,14 +5,16 @@ import { AuthenticatedUserContext } from "../../navigation/Navigation"
 import { useCallback, useContext } from "react"
 import { useFocusEffect } from "@react-navigation/core"
 import { TouchableOpacity } from "react-native"
+import { useUserStore } from "../../store/user"
 
 export const ProfileUserReport = ({ navigation }) => {
     const userAlerts = useAlertStore(state => state.userAlerts)
     const getUserAlerts = useAlertStore(state => state.getUserAlerts)
-    const { user } = useContext(AuthenticatedUserContext)
+    const userAuth = useUserStore(state => state.userAuth)
 
     useFocusEffect(useCallback(() => {
-        getUserAlerts(user.uid)
+        getUserAlerts(userAuth.userId)
+        console.log('userAuth', userAuth)
     }, []))
 
     navigateToAlertDetail = () => {
@@ -29,7 +31,7 @@ export const ProfileUserReport = ({ navigation }) => {
                     source={{
                         uri: "https://avatars.githubusercontent.com/u/111304665?v=4"
                     }} />
-                <Text fontSize="xl" fontWeight="bold">@Henry</Text>
+                <Text fontSize="xl" fontWeight="bold">@{userAuth.nombre}</Text>
                 <HStack space={3} mt={2} mb={2}>
                     <Button bg="secondary.700" onPress={() => console.log("hello world")}>Mis Reportes</Button>
                     <Button bg="muted.500" onPress={() => navigation.navigate('UserProfileEdit')}>Actualizar</Button>

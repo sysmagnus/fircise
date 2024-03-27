@@ -12,6 +12,7 @@ import { UserProfileEdit } from "../screens/users/UserProfileEdit"
 import { RegisterUser } from "../screens/RegisterUser"
 import { AdminUsersUpdate, ProfileUserReport } from "../screens/users"
 import { auth } from "../config/firebase"
+import { useUserStore } from "../store/user"
 
 const Stack = createStackNavigator()
 export const AuthenticatedUserContext = createContext({})
@@ -44,13 +45,23 @@ function GuestStack() {
     )
 }
 
-function AdminStack() {
+function AdminStack({ route }) {
     return (
-        <Stack.Navigator initialRouteName="HomeTabsUser" screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="HomeTabsAdmin" component={HomeTabsAdmin} />
-            <Stack.Screen name="HomeTabsUser" component={HomeTabsUser} />
-            <Stack.Screen name="AdminUsersUpdate" component={AdminUsersUpdate} />
-            <Stack.Screen name="AlertSentUser" component={AlertSentUser} />
+        <Stack.Navigator
+            initialRouteName={route}
+            screenOptions={{ headerShown: false }}>
+            <Stack.Screen
+                name="HomeTabsAdmin"
+                component={HomeTabsAdmin} />
+            <Stack.Screen
+                name="HomeTabsUser"
+                component={HomeTabsUser} />
+            <Stack.Screen
+                name="AdminUsersUpdate"
+                component={AdminUsersUpdate} />
+            <Stack.Screen
+                name="AlertSentUser"
+                component={AlertSentUser} />
             <Stack.Screen
                 name="ProfileUserReport"
                 component={ProfileUserReport}
@@ -82,6 +93,7 @@ function AdminStack() {
 export const Navigation = () => {
     const { user, setUser } = useContext(AuthenticatedUserContext)
     const [isLoading, setIsLoading] = useState(true)
+    const userAuth = useUserStore(state => state.userAuth)
 
     useEffect(() => {
         const unsubscribeAuth = onAuthStateChanged(
@@ -104,7 +116,9 @@ export const Navigation = () => {
 
     return (
         <NavigationContainer>
-            {user ? <AdminStack /> : <GuestStack />}
+            {!user && <GuestStack />}
+            {user && userAuth.rol === "admin" && <AdminStack route="HomeTabsAdmin" />}
+            {user && userAuth.rol === "user" && <AdminStack route="HomeTabsUser" />}
         </NavigationContainer>
     )
 }

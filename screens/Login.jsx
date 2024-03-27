@@ -8,6 +8,7 @@ import { useUserStore } from "../store/user"
 
 export const Login = ({ navigation }) => {
     const setUserAuth = useUserStore(state => state.setUserAuth)
+    const getUserById = useUserStore(state => state.getUserById)
 
     const formik = useFormik({
         initialValues: {
@@ -16,14 +17,18 @@ export const Login = ({ navigation }) => {
         },
         onSubmit: (values) => {
             signInWithEmailAndPassword(auth, values.email, values.password)
-                .then((userCredential) => {
+                .then(async (userCredential) => {
+                    console.log('logggin: ', userCredential.user.uid)
+                    const user = await getUserById(userCredential.user.uid)
                     setUserAuth({
-                        userId: userCredential.user.uid,
+                        userId: user.userId,
+                        nombre: user.nombre,
                         email: values.email,
-                        rol: 'user',
+                        rol: user.rol,
                     })
-                    console.log(userCredential)
-                    console.log('Usuario logueado')
+                    if (user.rol === 'admin') {
+                        navigateToHome()
+                    }
                 })
                 .catch((error) => {
                     Alert.alert('Login error', error.message)

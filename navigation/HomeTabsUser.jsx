@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons'
 import { HomeUser } from "../screens/home"
 import { AlertUser } from "../screens/alerts"
 import { ProfileUserReport } from "../screens/users"
-import { Avatar, HStack, IconButton, Input } from "native-base"
+import { Avatar, HStack, IconButton, Input, Text } from "native-base"
 import { auth } from "../config/firebase"
 import { signOut } from "firebase/auth"
 
@@ -31,12 +31,7 @@ export const HomeTabsUser = ({ navigation }) => {
                         <Feather name="home" size={size} color={color} />
                     ),
                     headerLeft: () => (
-                        <Input
-                            ml={5}
-                            placeholder="Buscar"
-                            w={200} variant="rounded"
-                            InputLeftElement={<Feather name="search" style={{ paddingLeft: 10 }} size={24} color="black" />}
-                        />
+                        <Text ml={2}>Bienvenido admin, Henry!</Text>
                     ),
                     headerRight: () => (
                         <HStack mr={4}>

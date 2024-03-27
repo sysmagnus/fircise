@@ -1,8 +1,8 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import { AdminAlertList } from "../screens/alerts"
+import { AdminAlertList, ValidateAlerts } from "../screens/alerts"
 import { AdminUsersList } from "../screens/users"
-import { HomeAdmin, HomeUser } from "../screens/home"
-import { Pressable, Text, Touchable } from "react-native"
+import { HomeUser } from "../screens/home"
+import { Pressable, Text } from "react-native"
 import { Avatar, HStack, IconButton } from "native-base"
 import { Feather } from "@expo/vector-icons"
 import { Ionicons } from "@expo/vector-icons"
@@ -74,6 +74,16 @@ export const HomeTabsAdmin = ({ navigation }) => {
                     tabBarLabel: 'Usuarios',
                     tabBarIcon: ({ color, size }) => (
                         <Feather name="user" size={size} color={color} />
+                    )
+                }} />
+            <Tab.Screen
+                name="ValidateAlerts"
+                component={ValidateAlerts}
+                options={{
+                    title: 'Validar Alertas',
+                    tabBarLabel: 'Validar',
+                    tabBarIcon: ({ color, size }) => (
+                        <Feather name="check-square" size={size} color={color} />
                     )
                 }} />
         </Tab.Navigator>
