@@ -17,7 +17,8 @@ export const useAlertStore = create((set) => ({
     },
     fetchAlerts: async () => {
         try {
-            const querySnapshot = await getDocs(collection(database, 'alerts'))
+            const q = query(collection(database, 'alerts'), where('published', '==', true))
+            const querySnapshot = await getDocs(q)
             const alerts = []
             querySnapshot.forEach((doc) => {
                 alerts.push({ id: doc.id, ...doc.data() })

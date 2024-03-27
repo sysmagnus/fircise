@@ -1,5 +1,5 @@
 import { createStackNavigator } from "@react-navigation/stack"
-import { createContext, useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { ActivityIndicator, View } from "react-native"
 import { NavigationContainer } from "@react-navigation/native"
 import { onAuthStateChanged } from "firebase/auth"
@@ -13,19 +13,9 @@ import { RegisterUser } from "../screens/RegisterUser"
 import { AdminUsersUpdate, ProfileUserReport } from "../screens/users"
 import { auth } from "../config/firebase"
 import { useUserStore } from "../store/user"
+import { AuthenticatedUserContext } from "../context"
 
 const Stack = createStackNavigator()
-export const AuthenticatedUserContext = createContext({})
-
-export const AuthenticatedUserProvider = ({ children }) => {
-    const [user, setUser] = useState(null)
-
-    return (
-        <AuthenticatedUserContext.Provider value={{ user, setUser }}>
-            {children}
-        </AuthenticatedUserContext.Provider>
-    )
-}
 
 function GuestStack() {
     return (

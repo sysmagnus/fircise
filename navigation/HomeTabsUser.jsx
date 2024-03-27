@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons'
 import { HomeUser } from "../screens/home"
 import { AlertUser } from "../screens/alerts"
 import { ProfileUserReport } from "../screens/users"
-import { Avatar, HStack, IconButton, Input, Text } from "native-base"
+import { Avatar, HStack, IconButton, Text } from "native-base"
 import { auth } from "../config/firebase"
 import { signOut } from "firebase/auth"
 

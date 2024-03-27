@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet } from "react-native"
 import MapView, { Marker } from "react-native-maps"
 import { useAlertStore } from "../../store/alert"
 
-export const AlertDetail = ({ navigation }) => {
+export const AlertDetail = () => {
     const selectedAlert = useAlertStore(state => state.selectedAlert)
 
     return (

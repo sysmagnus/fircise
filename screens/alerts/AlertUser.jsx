@@ -1,34 +1,31 @@
-import { Center, FormControl, HStack, IconButton, Input, ScrollView, Select, TextArea } from "native-base"
+import { Center, FormControl, HStack, Input, ScrollView, Select, TextArea } from "native-base"
 import { useEffect, useState } from "react"
 import { StyleSheet } from "react-native"
 import MapView, { Marker } from "react-native-maps"
-import DateTimePicker from '@react-native-community/datetimepicker'
 import { useFormik } from "formik"
 import { useAlertStore } from "../../store/alert"
 import { useFocusEffect } from "@react-navigation/core"
 import { useCallback } from "react"
 
 export const AlertUser = () => {
-    const [date, setDate] = useState(new Date())
-    const [time, setTime] = useState(new Date())
-    const [showDatePicker, setShowDatePicker] = useState(false)
-    const [showTimePicker, setShowTimePicker] = useState(false)
     const [origin, setOrigin] = useState({
         latitude: -13.617373,
         longitude: -72.868008,
     })
 
     const setAlertForm = useAlertStore(state => state.setAlertForm)
+    const date = new Date()
 
     const initialValues = {
         lugar: "",
         latitud: origin.latitude.toString(),
         longitud: origin.longitude.toString(),
         fecha: date.toLocaleDateString(),
-        hora: time.toLocaleTimeString(),
+        hora: date.toLocaleTimeString(),
         descripcion: "",
         magnitud: "",
-        estado: ""
+        estado: "",
+        published: false,
     }
 
     const formik = useFormik({ initialValues })
@@ -40,32 +37,6 @@ export const AlertUser = () => {
     useEffect(() => {
         setAlertForm(formik.values)
     }, [formik.values])
-
-    const handleOpenDatePicker = () => {
-        setShowDatePicker(true)
-    }
-
-    const handleSelectDate = (event, selectedDate) => {
-        if (selectedDate) {
-            const currentDate = selectedDate || date
-            formik.setFieldValue('fecha', currentDate.toLocaleDateString())
-            setShowDatePicker(false)
-            setDate(currentDate)
-        }
-    }
-
-    const handleOpenTimePicker = () => {
-        setShowTimePicker(true)
-    }
-
-    const handleSelectTime = (event, selectedTime) => {
-        if (selectedTime) {
-            const currentTime = selectedTime || time
-            formik.setFieldValue('hora', currentTime.toLocaleTimeString())
-            setShowTimePicker(false)
-            setTime(currentTime)
-        }
-    }
 
     return (
         <ScrollView style={{ margin: 10 }}>
@@ -84,8 +55,6 @@ export const AlertUser = () => {
                         }}
                         style={styles.map} >
                         <Marker
-                            title="Universidad"
-                            description={`Lat: ${origin.latitude} Lng: ${origin.longitude}`}
                             draggable={true}
                             coordinate={origin}
                             onDragEnd={(e) => {
@@ -109,34 +78,6 @@ export const AlertUser = () => {
                     <Input
                         value={origin.longitude.toString()}
                         isReadOnly />
-                </FormControl>
-            </HStack>
-            <HStack space={2} mb={2}>
-                <FormControl flex={1}>
-                    <FormControl.Label>Fecha</FormControl.Label>
-                    <Input
-                        value={date.toLocaleDateString()}
-                        onFocus={handleOpenDatePicker} />
-                    {showDatePicker && (
-                        <DateTimePicker
-                            value={date}
-                            mode="date"
-                            onChange={handleSelectDate}
-                        />
-                    )}
-                </FormControl>
-                <FormControl flex={1}>
-                    <FormControl.Label>Hora</FormControl.Label>
-                    <Input
-                        value={time.toLocaleTimeString()}
-                        onFocus={handleOpenTimePicker} />
-                    {showTimePicker && (
-                        <DateTimePicker
-                            value={time}
-                            mode="time"
-                            onChange={handleSelectTime}
-                        />
-                    )}
                 </FormControl>
             </HStack>
             <FormControl mb={2}>
