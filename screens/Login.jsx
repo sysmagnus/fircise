@@ -4,8 +4,11 @@ import { Input, Button, Link, Center, VStack } from "native-base"
 import { useFormik } from "formik"
 import { signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../config/firebase"
+import { useUserStore } from "../store/user"
 
 export const Login = ({ navigation }) => {
+    const setUserAuth = useUserStore(state => state.setUserAuth)
+
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -14,6 +17,11 @@ export const Login = ({ navigation }) => {
         onSubmit: (values) => {
             signInWithEmailAndPassword(auth, values.email, values.password)
                 .then((userCredential) => {
+                    setUserAuth({
+                        userId: userCredential.user.uid,
+                        email: values.email,
+                        rol: 'user',
+                    })
                     console.log(userCredential)
                     console.log('Usuario logueado')
                 })

@@ -1,8 +1,16 @@
 import { create } from "zustand"
-import { auth } from "../config/firebase"
+import { auth, database } from "../config/firebase"
 import { createUserWithEmailAndPassword } from "firebase/auth"
+import { addDoc, collection } from "firebase/firestore"
 
 export const useUserStore = create((set) => ({
+    userAuth: {
+        userId: '',
+        nombre: '',
+        email: '',
+        rol: 'guest',
+    },
+    setUserAuth: (user) => set({ userAuth: user }),
     registerUser: async (email, password, nombre) => {
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password)
@@ -13,7 +21,7 @@ export const useUserStore = create((set) => ({
                 rol: 'user',
             }
             await addDoc(collection(database, 'users'), userData)
-            return user
+            return userData
         } catch (error) {
             throw new Error("Failed to register user: " + error.message)
         }
