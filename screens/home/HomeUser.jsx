@@ -41,8 +41,6 @@ export const HomeUser = ({ navigation }) => {
                     alerts.map(alert => (
                         <Marker
                             key={alert.id}
-                            // title={alert.lugar}
-                            // description={alert.descripcion}
                             coordinate={{
                                 latitude: parseFloat(alert.latitud),
                                 longitude: parseFloat(alert.longitud),

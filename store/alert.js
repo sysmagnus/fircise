@@ -15,9 +15,9 @@ export const useAlertStore = create((set) => ({
     setSelectedAlert: (alert) => {
         set({ selectedAlert: alert })
     },
-    fetchAlerts: async () => {
+    fetchAlerts: async (published = true) => {
         try {
-            const q = query(collection(database, 'alerts'), where('published', '==', true))
+            const q = query(collection(database, 'alerts'), where('published', '==', published))
             const querySnapshot = await getDocs(q)
             const alerts = []
             querySnapshot.forEach((doc) => {

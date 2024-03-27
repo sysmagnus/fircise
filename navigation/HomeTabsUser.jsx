@@ -7,16 +7,18 @@ import { ProfileUserReport } from "../screens/users"
 import { Avatar, HStack, IconButton, Text } from "native-base"
 import { auth } from "../config/firebase"
 import { signOut } from "firebase/auth"
+import { useUserStore } from "../store"
 
 const Tab = createBottomTabNavigator()
 
 export const HomeTabsUser = ({ navigation }) => {
+    const userAuth = useUserStore(state => state.userAuth)
     const signOutLocal = async () => {
         try {
-            await signOut(auth);
-            console.log('User signed out!');
+            await signOut(auth)
+            console.log('User signed out!')
         } catch (error) {
-            console.error('Error signing out: ', error);
+            console.error('Error signing out: ', error)
         }
     }
 
@@ -31,7 +33,7 @@ export const HomeTabsUser = ({ navigation }) => {
                         <Feather name="home" size={size} color={color} />
                     ),
                     headerLeft: () => (
-                        <Text ml={2}>Bienvenido admin, Henry!</Text>
+                        <Text ml={2}>Bienvenido admin, {userAuth.nombre}!</Text>
                     ),
                     headerRight: () => (
                         <HStack mr={4}>

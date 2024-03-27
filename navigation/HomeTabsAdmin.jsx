@@ -6,10 +6,23 @@ import { Pressable, Text } from "react-native"
 import { Avatar, HStack, IconButton } from "native-base"
 import { Feather } from "@expo/vector-icons"
 import { Ionicons } from "@expo/vector-icons"
+import { signOut } from "firebase/auth"
+import { auth } from "../config/firebase"
+import { useUserStore } from "../store"
 
 const Tab = createBottomTabNavigator()
 
 export const HomeTabsAdmin = ({ navigation }) => {
+    const userAuth = useUserStore(state => state.userAuth)
+
+    const signOutLocal = async () => {
+        try {
+            await signOut(auth)
+            console.log('User signed out!')
+        } catch (error) {
+            console.error('Error signing out: ', error)
+        }
+    }
 
     const navigateToProfileUser = () => {
         navigation.navigate('ProfileUserReport')
@@ -27,7 +40,7 @@ export const HomeTabsAdmin = ({ navigation }) => {
                         <Feather name="home" size={size} color={color} />
                     ),
                     headerLeft: () => (
-                        <Text>Bienvenido admin, Henry!</Text>
+                        <Text>Bienvenido admin, {userAuth.nombre}!</Text>
                     ),
                     headerRight: () => (
                         <HStack mr={4}>
@@ -74,6 +87,15 @@ export const HomeTabsAdmin = ({ navigation }) => {
                     tabBarLabel: 'Usuarios',
                     tabBarIcon: ({ color, size }) => (
                         <Feather name="user" size={size} color={color} />
+                    ),
+                    headerRight: () => (
+                        <IconButton
+                            onPress={signOutLocal}
+                            variant="ghost"
+                            _icon={{
+                                as: Feather,
+                                name: "log-out",
+                            }} mr={2} />
                     )
                 }} />
             <Tab.Screen
