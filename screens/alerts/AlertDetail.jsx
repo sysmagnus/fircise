@@ -1,15 +1,16 @@
 import { Box, Button, Center, Heading, Text } from "native-base"
 import { Alert, ScrollView, StyleSheet } from "react-native"
 import MapView, { Marker } from "react-native-maps"
-import { useAlertStore } from "../../store/alert"
+import { useAlertStore } from "../../store"
 
 export const AlertDetail = () => {
     const selectedAlert = useAlertStore(state => state.selectedAlert)
     const validateAlert = useAlertStore(state => state.validateAlert)
+    const setSelectedAlert = useAlertStore(state => state.setSelectedAlert)
 
     const handleValidateAlert = async () => {
         const status = await validateAlert(selectedAlert.id)
-        selectedAlert.published = true
+        setSelectedAlert({ ...selectedAlert, published: true })
         Alert.alert(status.message)
     }
 
