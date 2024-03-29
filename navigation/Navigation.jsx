@@ -10,7 +10,7 @@ import { AlertDetail, AlertSentUser } from "../screens/alerts"
 import { Login } from "../screens/Login"
 import { UserProfileEdit } from "../screens/users/UserProfileEdit"
 import { RegisterUser } from "../screens/RegisterUser"
-import { AdminUsersUpdate, ProfileUserReport } from "../screens/users"
+import { AdminUsersUpdate, Logout, ProfileUserReport } from "../screens/users"
 import { auth } from "../config/firebase"
 import { useUserStore } from "../store/user"
 import { AuthenticatedUserContext } from "../context"
@@ -35,14 +35,96 @@ function GuestStack() {
     )
 }
 
-function AdminStack({ route }) {
+// function CommonScreens() {
+//     return (
+//         <Stack.Group>
+//             <Stack.Screen
+//                 name="AdminUsersUpdate"
+//                 component={AdminUsersUpdate} />
+//             <Stack.Screen
+//                 name="AlertSentUser"
+//                 component={AlertSentUser} />
+//             <Stack.Screen
+//                 name="Logout"
+//                 component={Logout} />
+//             <Stack.Screen
+//                 name="ProfileUserReport"
+//                 component={ProfileUserReport}
+//                 options={{
+//                     title: 'Perfil',
+//                     headerShown: true,
+//                     headerTransparent: false
+//                 }} />
+//             <Stack.Screen
+//                 name="UserProfileEdit"
+//                 component={UserProfileEdit}
+//                 options={{
+//                     title: 'Perfil',
+//                     headerShown: true,
+//                     headerTransparent: false
+//                 }} />
+//             <Stack.Screen
+//                 name="AlertDetail"
+//                 component={AlertDetail}
+//                 options={{
+//                     title: 'Detalles',
+//                     headerShown: true,
+//                     headerTransparent: false
+//                 }} />
+//         </Stack.Group>
+//     )
+// }
+
+function AdminStack() {
     return (
         <Stack.Navigator
-            initialRouteName={route}
+            initialRouteName="HomeTabsAdmin"
             screenOptions={{ headerShown: false }}>
             <Stack.Screen
                 name="HomeTabsAdmin"
                 component={HomeTabsAdmin} />
+            <Stack.Screen
+                name="AdminUsersUpdate"
+                component={AdminUsersUpdate} />
+            <Stack.Screen
+                name="AlertSentUser"
+                component={AlertSentUser} />
+            <Stack.Screen
+                name="Logout"
+                component={Logout} />
+            <Stack.Screen
+                name="ProfileUserReport"
+                component={ProfileUserReport}
+                options={{
+                    title: 'Perfil',
+                    headerShown: true,
+                    headerTransparent: false
+                }} />
+            <Stack.Screen
+                name="UserProfileEdit"
+                component={UserProfileEdit}
+                options={{
+                    title: 'Perfil',
+                    headerShown: true,
+                    headerTransparent: false
+                }} />
+            <Stack.Screen
+                name="AlertDetail"
+                component={AlertDetail}
+                options={{
+                    title: 'Detalles',
+                    headerShown: true,
+                    headerTransparent: false
+                }} />
+        </Stack.Navigator>
+    )
+}
+
+function UserStack() {
+    return (
+        <Stack.Navigator
+            initialRouteName="HomeTabsUser"
+            screenOptions={{ headerShown: false }}>
             <Stack.Screen
                 name="HomeTabsUser"
                 component={HomeTabsUser} />
@@ -52,6 +134,9 @@ function AdminStack({ route }) {
             <Stack.Screen
                 name="AlertSentUser"
                 component={AlertSentUser} />
+            <Stack.Screen
+                name="Logout"
+                component={Logout} />
             <Stack.Screen
                 name="ProfileUserReport"
                 component={ProfileUserReport}
@@ -93,7 +178,7 @@ export const Navigation = () => {
                 setIsLoading(false)
             }
         )
-        return unsubscribeAuth
+        return () => unsubscribeAuth()
     }, [user])
 
     if (isLoading) {
@@ -104,11 +189,34 @@ export const Navigation = () => {
         )
     }
 
-    return (
+    /* return (
         <NavigationContainer>
             {!user && <GuestStack />}
-            {user && userAuth.rol === "admin" && <AdminStack route="HomeTabsAdmin" />}
-            {user && userAuth.rol === "user" && <AdminStack route="HomeTabsUser" />}
+            {user && userAuth.rol === "admin" && <AdminStack />}
+            {user && userAuth.rol === "user" && <UserStack />}
         </NavigationContainer>
-    )
+    ) */
+
+    if (!user) {
+        return (
+            <NavigationContainer>
+                <GuestStack />
+            </NavigationContainer>
+        )
+    } else {
+        if (userAuth.rol === "admin") {
+            return (
+                <NavigationContainer>
+                    <AdminStack />
+                </NavigationContainer>
+            )
+        }
+        if (userAuth.rol === "user") {
+            return (
+                <NavigationContainer>
+                    <UserStack />
+                </NavigationContainer>
+            )
+        }
+    }
 }

@@ -1,7 +1,9 @@
-import { Avatar, Box, Button, Center, Radio, ScrollView, Text, VStack } from "native-base"
+import { Avatar, Box, Button, Center, HStack, Radio, ScrollView, Text, VStack } from "native-base"
 import { useUserStore } from "../../store"
 import { useFormik } from "formik"
 import { Alert } from "react-native"
+import { useFocusEffect } from "@react-navigation/native"
+import { useCallback } from "react"
 
 export const AdminUsersUpdate = ({ navigation }) => {
     const selectedUser = useUserStore(state => state.selectedUser)
@@ -9,9 +11,10 @@ export const AdminUsersUpdate = ({ navigation }) => {
 
     const formik = useFormik({
         initialValues: {
-            rol: ''
+            rol: 'user'
         },
         onSubmit: async (values) => {
+            console.log("selectedUser", selectedUser, values)
             if (values.rol === '') {
                 navigation.goBack()
             } else {
@@ -21,6 +24,10 @@ export const AdminUsersUpdate = ({ navigation }) => {
             }
         }
     })
+
+    useFocusEffect(useCallback(() => {
+        formik.setFieldValue('rol', selectedUser.rol)
+    }, []))
 
     return (
         <ScrollView>
@@ -33,7 +40,10 @@ export const AdminUsersUpdate = ({ navigation }) => {
                         uri: "https://avatars.githubusercontent.com/u/111304665?v=4"
                     }} />
                 <Text fontSize="xl" fontWeight="bold" mb={2}>@{selectedUser.nombre}</Text>
-                <Button bg="muted.500" onPress={() => formik.handleSubmit()}>Actualizar</Button>
+                <HStack space={3}>
+                    <Button bg="muted.500" onPress={() => navigation.goBack()}>Volver</Button>
+                    <Button colorScheme="secondary" onPress={() => formik.handleSubmit()}>Actualizar</Button>
+                </HStack>
             </Center>
             <VStack space={3} ml={5} mr={5}>
                 <Box>
@@ -50,7 +60,7 @@ export const AdminUsersUpdate = ({ navigation }) => {
                 </Box>
                 <Box>
                     <Text fontWeight="bold">Permisos</Text>
-                    <Radio.Group value={formik.rol} onChange={formik.handleChange('rol')}>
+                    <Radio.Group value={formik.values.rol} onChange={formik.handleChange('rol')}>
                         <Radio shadow={2} value="admin" my="2">
                             Administrador
                         </Radio>

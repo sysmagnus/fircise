@@ -18,7 +18,6 @@ export const Login = ({ navigation }) => {
         onSubmit: (values) => {
             signInWithEmailAndPassword(auth, values.email, values.password)
                 .then(async (userCredential) => {
-                    console.log('logggin: ', userCredential.user.uid)
                     const user = await getUserById(userCredential.user.uid)
                     setUserAuth({
                         userId: user.userId,

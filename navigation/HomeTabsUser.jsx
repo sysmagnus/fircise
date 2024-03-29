@@ -99,7 +99,7 @@ export const HomeTabsUser = ({ navigation }) => {
                     ),
                     headerRight: () => (
                         <IconButton
-                            onPress={signOutLocal}
+                            onPress={() => navigation.navigate('Logout')}
                             variant="ghost"
                             _icon={{
                                 as: Feather,
