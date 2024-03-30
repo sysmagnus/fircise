@@ -39,7 +39,7 @@ export const AlertUser = () => {
     }, [formik.values])
 
     return (
-        <ScrollView style={{ margin: 10 }}>
+        <ScrollView style={{ backgroundColor: 'white', padding: 10 }}>
             <FormControl>
                 <FormControl.Label>Lugar del Incendio</FormControl.Label>
                 <Input value={formik.values.lugar}
@@ -90,7 +90,7 @@ export const AlertUser = () => {
                 <TextArea value={formik.values.magnitud}
                     onChangeText={formik.handleChange('magnitud')} />
             </FormControl>
-            <FormControl >
+            <FormControl mb={2}>
                 <FormControl.Label>Estado</FormControl.Label>
                 <Select
                     onValueChange={(value) => {
