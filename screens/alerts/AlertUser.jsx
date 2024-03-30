@@ -1,7 +1,7 @@
 import { Center, FormControl, HStack, Input, ScrollView, Select, TextArea } from "native-base"
 import { useEffect, useState } from "react"
 import { StyleSheet } from "react-native"
-import MapView, { Marker } from "react-native-maps"
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps"
 import { useFormik } from "formik"
 import { useAlertStore } from "../../store/alert"
 import { useFocusEffect } from "@react-navigation/core"
@@ -47,6 +47,7 @@ export const AlertUser = () => {
                 />
                 <Center mt={2} mb={2}>
                     <MapView
+                        provider={PROVIDER_GOOGLE}
                         initialRegion={{
                             latitude: origin.latitude,
                             longitude: origin.longitude,
