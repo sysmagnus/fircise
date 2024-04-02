@@ -1,12 +1,13 @@
 import { Box, Button, Center, HStack, Heading, Text } from "native-base"
 import { Alert, ScrollView, StyleSheet } from "react-native"
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps"
-import { useAlertStore } from "../../store"
+import { useAlertStore, useUserStore } from "../../store"
 
 export const AlertDetail = ({ navigation }) => {
     const selectedAlert = useAlertStore(state => state.selectedAlert)
     const validateAlert = useAlertStore(state => state.validateAlert)
     const setSelectedAlert = useAlertStore(state => state.setSelectedAlert)
+    const userAuth = useUserStore(state => state.userAuth)
 
     const handleValidateAlert = async () => {
         const status = await validateAlert(selectedAlert.id)
@@ -50,13 +51,16 @@ export const AlertDetail = ({ navigation }) => {
                 <Heading>Estado</Heading>
                 <Text fontSize="lg">{selectedAlert.estado}</Text>
             </Box>
-            <HStack mt={2}>
+            <HStack space={3} mt={2}>
                 {
                     selectedAlert.published === false &&
                     <Button onPress={() => handleValidateAlert(selectedAlert)}>Validar</Button>
                 }
-                <Button colorScheme="secondary"
-                    onPress={() => navigation.navigate('AlertaAdminGenerar')}>Generar Alerta</Button>
+                {
+                    userAuth && userAuth.rol === 'admin' &&
+                    <Button colorScheme="secondary"
+                        onPress={() => navigation.navigate('AlertaAdminGenerar')}>Generar Alerta</Button>
+                }
             </HStack>
         </ScrollView>
     )

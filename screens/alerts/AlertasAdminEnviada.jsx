@@ -1,12 +1,38 @@
 import { Center, Heading, Image, Text } from "native-base"
 import { useEffect, useState } from "react"
 import { ScrollView } from "react-native"
+import { useUserStore } from "../../store/user"
 
 export const AlertasAdminEnviada = ({ navigation }) => {
     const [count, setCount] = useState(3)
+    const getUsers = useUserStore(state => state.getUsers)
 
-    const handlerNotificar = () => {
+    const sendPushNotification = async (token) => {
+        console.log('notificación enviada: ', token)
+        const message = {
+            to: token,
+            sound: 'default',
+            title: 'Alerta Enviada',
+            body: 'Tu alerta ha sido enviada.',
+            data: { someData: 'goes here' },
+        }
 
+        await fetch('https://exp.host/--/api/v2/push/send', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Accept-encoding': 'gzip, deflate',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(message),
+        })
+    }
+
+    const handlerNotificar = async () => {
+        const users = await getUsers()
+        const tokens = users.map(user => user.token)
+        console.log("-------------------")
+        await Promise.all(tokens.map(token => sendPushNotification(token)))
         navigation.navigate('HomeUser')
     }
 

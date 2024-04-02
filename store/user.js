@@ -44,6 +44,7 @@ export const useUserStore = create((set) => ({
                 users.push({ id: doc.id, ...doc.data() })
             })
             set({ users })
+            return users
         } catch (error) {
             console.error('Error al obtener las alertas:', error)
         }
@@ -55,7 +56,7 @@ export const useUserStore = create((set) => ({
             if (status !== 'granted') return
         }
 
-        const token = (await Notifications.getExpoPushTokenAsync({projectId: "997ad5f3-b2fa-45e9-8d83-16c0ceef8968"})).data
+        const token = (await Notifications.getExpoPushTokenAsync({ projectId: "997ad5f3-b2fa-45e9-8d83-16c0ceef8968" })).data
         console.log('token:', token)
 
         try {
