@@ -14,9 +14,8 @@ export const RegisterUser = ({ navigation }) => {
         },
         onSubmit: values => {
             registerUser(values.correo, values.password, values.nombre)
-                .then(() => {
+                .then((user) => {
                     Alert.alert('Registro exitoso', 'Usuario registrado correctamente')
-                    navigation.goBack()
                 })
                 .catch(error => {
                     console.log(error)
