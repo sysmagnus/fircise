@@ -2,18 +2,20 @@ import { Center, Heading, Image, Text } from "native-base"
 import { useEffect, useState } from "react"
 import { ScrollView } from "react-native"
 import { useUserStore } from "../../store/user"
+import { useAlertStore } from "../../store"
 
 export const AlertasAdminEnviada = ({ navigation }) => {
     const [count, setCount] = useState(3)
     const getUsers = useUserStore(state => state.getUsers)
+    const selectedAlert = useAlertStore(state => state.selectedAlert)
 
     const sendPushNotification = async (token) => {
         console.log('notificación enviada: ', token)
         const message = {
             to: token,
             sound: 'default',
-            title: 'Alerta Enviada',
-            body: 'Tu alerta ha sido enviada.',
+            title: 'Alerta de Emergencia',
+            body: `${selectedAlert.lugar} - ${selectedAlert.descripcion}`,
             data: { someData: 'goes here' },
         }
 
